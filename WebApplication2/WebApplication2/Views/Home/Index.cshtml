@@ -7,18 +7,23 @@
 
 <div id="ko-main">
     <ul data-bind="foreach: colours">
-        <li><span data-bind="text: name"></span></li>
+        <li>
+            <span data-bind="visible: !isEdit(), text: name, click:setIsEdit"></span>
+            <input type="text" data-bind="visible: isEdit, value: name" />
+            <a href="#" data-bind="click: setIsEdit">Edit</a>
+            <a href="#" data-bind="visible: isEdit, click: $parent.saveColour">Save</a>
+            <a href="#" data-bind="visible: isEdit, click: unsetIsEdit">Cancel</a>
+            <a href="#" data-bind="visible: !isEdit(), click: $parent.removeColour">Delete</a>
+        </li>
     </ul>
-    <form action="~/Home/AddColour" method="post">
-        <input id="colourName" name="colourName" type="text" />
-        <input type="submit" value="Submit"/>
-    </form>
+    <input id="colourName" name="colourName" type="text" data-bind="value: newColour" />
+    <a href="#" data-bind="click: addColour">Add</a>
 </div>
 
 
 <script>
     $(document).ready(function () {
-        var viewmodel = new indexviewmodel()
+        var viewmodel = new rd.colours.indexviewmodel()
         ko.applyBindings(viewmodel, document.getElementById("ko-main"))
 
         viewmodel.load()

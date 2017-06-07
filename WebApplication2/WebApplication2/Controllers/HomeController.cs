@@ -14,31 +14,66 @@ namespace WebApplication2.Controllers
         public ActionResult Index()
         {
             if (Session["colours"] == null)
-                Session["colours"] = new List<Colour> { new Colour { id = 0, name = "Red" } };
+                Session["colours"] = new List<Colour> { new Colour { Id = 1, Name = "Red" } };
 
             return View();
         }
-        
+
         [HttpPost]
-        public ActionResult AddColour(Colour colourInput)
+        public JsonResult AddColour(Colour colourInput)
         {
-            ((List<Colour>)(Session["colours"])).Add(colourInput);
-            return new RedirectResult("/");
+            var newId = 0;
+            var colourList = ((List<Colour>)(Session["colours"]));
+            if (colourList.Count != 0)
+            {
+                newId = colourList[colourList.Count - 1].Id + 1;
+            }
+
+            colourInput.Id = newId;
+
+            colourList.Add(colourInput);
+
+            return GetColours();
         }
         
         [HttpGet]
         public JsonResult GetColours()
         {
+            var colours = GetIndexVM();
+
+            return Json(colours, JsonRequestBehavior.AllowGet);
+        }
+
+        private IndexViewModel GetIndexVM()
+        {
             if (Session["colours"] == null)
                 Session["colours"] = new List<Colour>();
 
-            var colours = new IndexViewModel { Colours = new List<Colour>() };
+            var vm = new IndexViewModel { Colours = new List<Colour>() };
             foreach (var c in (List<Colour>)Session["colours"])
             {
-                colours.Colours.Add(c);
+                vm.Colours.Add(c);
             }
 
-            return Json(colours, JsonRequestBehavior.AllowGet);
+            return vm;
+        }
+
+        [HttpPost]
+        public JsonResult RemoveColour(int Id)
+        {
+            var colourList = ((List<Colour>)(Session["colours"]));
+            var destColour = colourList.Find(c => c.Id == Id);
+            colourList.Remove(destColour);
+            return GetColours();
+        }
+
+        [HttpPost]
+        public JsonResult SaveColour(Colour SavedColour)
+        {
+            var colourList = ((List<Colour>)(Session["colours"]));
+            var colourToEdit = colourList.Find(c => c.Id == SavedColour.Id);
+            colourToEdit.Name = SavedColour.Name;
+            return GetColours();
         }
     }
 }

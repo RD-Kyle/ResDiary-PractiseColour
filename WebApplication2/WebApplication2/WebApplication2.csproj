@@ -164,7 +164,10 @@
     </Content>
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\index\colourviewmodel.js" />
+    <Content Include="Scripts\index\constants.js" />
     <Content Include="Scripts\index\indexviewmodel.js" />
+    <Content Include="Scripts\index\namespace.js" />
+    <Content Include="Scripts\index\service.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />
     <Content Include="Scripts\jquery-3.1.1.slim.js" />

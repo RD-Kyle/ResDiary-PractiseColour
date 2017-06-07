@@ -14,6 +14,9 @@ namespace WebApplication2
             bundles.Add(new Bundle("~/bundles/index").Include(
                         "~/Scripts/jquery-{version}.js",
                         "~/Scripts/knockout-3.4.2.js",
+                        "~/Scripts/index/namespace.js",
+                        "~/Scripts/index/constants.js",
+                        "~/Scripts/index/service.js",
                         "~/Scripts/index/colourviewmodel.js",
                         "~/Scripts/index/indexviewmodel.js"));
 

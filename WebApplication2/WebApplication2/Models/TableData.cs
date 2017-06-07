@@ -11,8 +11,8 @@ namespace WebApplication2.Models
 
         public TableData()
         {
-            colours.Add(new Colour { id = 0, name = "Blue" });
-            colours.Add(new Colour { id = 1, name = "Red" });
+            colours.Add(new Colour { Id = 0, Name = "Blue" });
+            colours.Add(new Colour { Id = 1, Name = "Red" });
         }
     }
 }
