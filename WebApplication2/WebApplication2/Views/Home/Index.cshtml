@@ -1,0 +1,26 @@
+﻿@model WebApplication2.Models.IndexViewModel
+
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div id="ko-main">
+    <ul data-bind="foreach: colours">
+        <li><span data-bind="text: name"></span></li>
+    </ul>
+    <form action="~/Home/AddColour" method="post">
+        <input id="colourName" name="colourName" type="text" />
+        <input type="submit" value="Submit"/>
+    </form>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        var viewmodel = new indexviewmodel()
+        ko.applyBindings(viewmodel, document.getElementById("ko-main"))
+
+        viewmodel.load()
+    })
+</script>
