@@ -10,6 +10,7 @@
         <li>
             <span data-bind="visible: !isEdit(), text: name, click:setIsEdit"></span>
             <input type="text" data-bind="visible: isEdit, value: name" />
+            <span data-bind="visible: !validName">Please enter a non-empty non-numeric string</span>
             <a href="#" data-bind="click: setIsEdit">Edit</a>
             <a href="#" data-bind="visible: isEdit, click: $parent.saveColour">Save</a>
             <a href="#" data-bind="visible: isEdit, click: unsetIsEdit">Cancel</a>
