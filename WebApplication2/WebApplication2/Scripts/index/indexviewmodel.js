@@ -4,6 +4,28 @@
     self.colours = ko.observableArray([]);
     self.newColour = ko.observable("");
 
+    ko.extenders.validateName = function (target, errorMsg) {
+
+        target.hasError = ko.observable();
+        target.validationMessage = ko.observable();
+
+        function validate(newValue) {
+            var alphabet = /^[a-zA-Z]+$/;
+
+            if ((newValue.value.match(alphabet)) && (newValue != "")) {
+                target.hasError(false);
+            } else {
+                target.hasError(true);
+            }
+
+            target.validationMessage(errorMsg);
+        }
+
+        validate(target());
+        target.subscribe(validate);
+
+        return target;
+    };
 
     var updateColoursArray = function (colours) {
         self.colours(ko.utils.arrayMap(colours.Colours, function (c) { return new rd.colours.colourviewmodel(c) }))
